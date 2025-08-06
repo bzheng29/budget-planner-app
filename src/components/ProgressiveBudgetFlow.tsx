@@ -3,7 +3,9 @@ import { ExpenseUpload } from './ExpenseUpload';
 import { QuickInsights } from './QuickInsights';
 import { VerifyPatterns } from './VerifyPatterns';
 import { GeminiProcessingLoader } from './GeminiProcessingLoader';
+import { MultiStageLoader } from './MultiStageLoader';
 import { ExpenseParserService, type ExpenseMetadata } from '../services/expenseParserService';
+import { MultiStageExpenseParser } from '../services/multiStageExpenseParser';
 import { MemoryService } from '../services/memoryService';
 import { calculateAIBudget } from '../utils/aiBudgetCalculator';
 import BudgetResults from './BudgetResults';
@@ -42,8 +44,11 @@ const ProgressiveBudgetFlow: React.FC<ProgressiveBudgetFlowProps> = ({ onMemoryU
   const [showResults, setShowResults] = useState(false);
   const [completedStepIds, setCompletedStepIds] = useState<Set<string>>(new Set());
   const [totalExpectedSteps, setTotalExpectedSteps] = useState(5); // Base expected steps
+  const [parseStage, setParseStage] = useState(0);
+  const [stageResults, setStageResults] = useState<any[]>([]);
   
   const expenseParser = new ExpenseParserService(import.meta.env.VITE_GEMINI_API_KEY || '');
+  const useMultiStageParser = true; // Enable multi-stage parsing for better accuracy
 
   // Initial steps - will be dynamically adjusted based on user data
   const baseSteps: Step[] = [
@@ -158,8 +163,36 @@ const ProgressiveBudgetFlow: React.FC<ProgressiveBudgetFlowProps> = ({ onMemoryU
 
   const handleFileUpload = async (file: File) => {
     setIsProcessing(true);
+    setParseStage(0);
+    setStageResults([]);
+    
     try {
-      const { metadata, expenses } = await expenseParser.parseExpenseFile(file);
+      // Use multi-stage parser for better accuracy
+      let metadata, expenses;
+      
+      if (useMultiStageParser) {
+        // Create parser with stage update callback
+        const multiStageParser = new MultiStageExpenseParser(
+          import.meta.env.VITE_GEMINI_API_KEY || '',
+          (stage, result) => {
+            setParseStage(stage);
+            setStageResults(prev => {
+              const updated = [...prev];
+              updated[stage - 1] = result;
+              return updated;
+            });
+          }
+        );
+        
+        const result = await multiStageParser.parseExpenseFile(file);
+        metadata = result.metadata;
+        expenses = result.expenses;
+      } else {
+        const result = await expenseParser.parseExpenseFile(file);
+        metadata = result.metadata;
+        expenses = result.expenses;
+      }
+        
       setExpenseMetadata(metadata);
       
       // Extract memory profile from expenses
@@ -245,6 +278,17 @@ const ProgressiveBudgetFlow: React.FC<ProgressiveBudgetFlowProps> = ({ onMemoryU
     );
   }
 
+  if (isProcessing && parseStage > 0 && parseStage <= 5) {
+    // Show multi-stage loader during file processing
+    return (
+      <MultiStageLoader 
+        isProcessing={isProcessing}
+        currentStage={parseStage}
+        stageResults={stageResults}
+      />
+    );
+  }
+  
   if (isProcessing && currentStep === dynamicSteps.length - 1) {
     return (
       <div className="generating-budget-container">
