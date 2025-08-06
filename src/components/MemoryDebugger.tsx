@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { UserMemoryProfile } from '../types/memory';
+import type { UserMemoryProfile } from '../types/memory';
 import { MemoryService } from '../services/memoryService';
 import './MemoryDebugger.css';
 
@@ -14,7 +14,7 @@ export const MemoryDebugger: React.FC<MemoryDebuggerProps> = ({ memory: propMemo
   const [testScenarios, setTestScenarios] = useState<UserMemoryProfile[]>([]);
   const [selectedScenario, setSelectedScenario] = useState<number>(-1);
   
-  const memoryService = new MemoryService();
+  const memoryService = React.useMemo(() => new MemoryService(), []);
 
   useEffect(() => {
     if (propMemory) {

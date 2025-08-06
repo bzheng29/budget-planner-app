@@ -1,13 +1,12 @@
-import { 
+import type { 
   UserMemoryProfile, 
   MerchantPattern, 
   RecurringExpense,
   SeasonalPattern,
   FinancialGoal,
-  MemoryUpdate,
   DataAnomaly
 } from '../types/memory';
-import { ParsedExpense, ExpenseMetadata } from './expenseParserService';
+import type { ParsedExpense, ExpenseMetadata } from './expenseParserService';
 
 export class MemoryService {
   private memories: Map<string, UserMemoryProfile> = new Map();
@@ -441,7 +440,7 @@ export class MemoryService {
     return next;
   }
   
-  private suggestGoals(metadata: ExpenseMetadata, lifestyle: any): FinancialGoal[] {
+  private suggestGoals(metadata: ExpenseMetadata, _lifestyle: unknown): FinancialGoal[] {
     const goals: FinancialGoal[] = [];
     const baseId = Date.now().toString();
     

@@ -89,7 +89,7 @@ export interface UserMemoryProfile {
     preferredAdviceStyle: 'detailed' | 'concise' | 'visual' | 'conversational';
     trustedCategories: string[]; // Categories where user follows AI advice
     ignoredSuggestions: string[]; // Types of suggestions user typically ignores
-    customPreferences: { [key: string]: any };
+    customPreferences: { [key: string]: unknown };
     feedbackHistory: UserFeedback[];
   };
 

@@ -93,7 +93,7 @@ const ProgressiveBudgetFlow: React.FC = () => {
   }, [userProfile, expenseMetadata]);
 
   const updateDynamicSteps = async () => {
-    let steps = [...baseSteps];
+    const steps = [...baseSteps];
     let additionalSteps = 0;
     
     // If user has expense data, we might skip or adjust certain steps

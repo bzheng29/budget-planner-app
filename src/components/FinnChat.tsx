@@ -75,8 +75,8 @@ const FinnChat: React.FC = () => {
         suggestions: ["How can I save more?", "Explain my budget", "Adjust categories", "Set new goals"]
       }
       setMessages(prev => [...prev, resultMessage])
-    } catch (error) {
-      console.error('Budget generation failed:', error)
+    } catch {
+      console.error('Budget generation failed')
       const budget = calculateBudget(profile)
       setCurrentBudget(budget)
       
@@ -248,7 +248,7 @@ const FinnChat: React.FC = () => {
       }
       setMessages(prev => [...prev, analysisMessage])
       setShowExpenseUpload(false)
-    } catch (error) {
+    } catch {
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         text: "I had trouble reading that file. Could you try a different format, or would you prefer to enter your information manually?",
