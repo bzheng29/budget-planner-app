@@ -4,9 +4,11 @@ import { QuickInsights } from './QuickInsights';
 import { VerifyPatterns } from './VerifyPatterns';
 import { GeminiProcessingLoader } from './GeminiProcessingLoader';
 import { ExpenseParserService, type ExpenseMetadata } from '../services/expenseParserService';
+import { MemoryService } from '../services/memoryService';
 import { calculateAIBudget } from '../utils/aiBudgetCalculator';
 import BudgetResults from './BudgetResults';
 import type { UserProfile, Budget } from '../types';
+import type { UserMemoryProfile } from '../types/memory';
 import './ProgressiveBudgetFlow.css';
 
 interface Step {
@@ -25,7 +27,11 @@ interface StepComponentProps {
   expenseMetadata?: ExpenseMetadata;
 }
 
-const ProgressiveBudgetFlow: React.FC = () => {
+interface ProgressiveBudgetFlowProps {
+  onMemoryUpdate?: (memory: UserMemoryProfile) => void;
+}
+
+const ProgressiveBudgetFlow: React.FC<ProgressiveBudgetFlowProps> = ({ onMemoryUpdate }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [userProfile, setUserProfile] = useState<UserProfile>({});
   const [expenseMetadata, setExpenseMetadata] = useState<ExpenseMetadata | null>(null);
@@ -155,6 +161,19 @@ const ProgressiveBudgetFlow: React.FC = () => {
     try {
       const { metadata, expenses } = await expenseParser.parseExpenseFile(file);
       setExpenseMetadata(metadata);
+      
+      // Extract memory profile from expenses
+      const memoryService = new MemoryService();
+      const memoryProfile = memoryService.extractMemoryFromExpenses(
+        expenses,
+        metadata,
+        'default'
+      );
+      
+      // Notify parent component about memory update
+      if (onMemoryUpdate) {
+        onMemoryUpdate(memoryProfile);
+      }
       
       // Update user profile with expense insights
       const updatedProfile = {
