@@ -32,7 +32,7 @@ gcloud auth configure-docker
 ### 2. Deploy
 ```bash
 # Build
-docker build --build-arg GEMINI_API_KEY="AIzaSyCZ16kAe0oOUGfiPaZe8C6fjXAdyWbtQk8" -t gcr.io/finn-468109/budget-planner-finn:latest .
+docker build --build-arg GEMINI_API_KEY="${VITE_GEMINI_API_KEY}" -t gcr.io/finn-468109/budget-planner-finn:latest .
 
 # Push
 docker push gcr.io/finn-468109/budget-planner-finn:latest

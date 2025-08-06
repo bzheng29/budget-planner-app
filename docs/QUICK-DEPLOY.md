@@ -52,7 +52,7 @@ gcloud services enable cloudbuild.googleapis.com run.googleapis.com
 
 # Submit build
 gcloud builds submit --config cloudbuild.yaml \
-  --substitutions=_SERVICE_NAME=budget-planner-finn,_REGION=us-central1,_GEMINI_API_KEY=AIzaSyCZ16kAe0oOUGfiPaZe8C6fjXAdyWbtQk8
+  --substitutions=_SERVICE_NAME=budget-planner-finn,_REGION=us-central1,_GEMINI_API_KEY=${VITE_GEMINI_API_KEY}
 ```
 
 After deployment completes, you'll get a URL where your app is live!

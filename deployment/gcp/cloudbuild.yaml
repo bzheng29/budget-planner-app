@@ -38,7 +38,7 @@ images:
 
 # Substitutions for environment variables
 substitutions:
-  _GEMINI_API_KEY: 'AIzaSyCZ16kAe0oOUGfiPaZe8C6fjXAdyWbtQk8'
+  _GEMINI_API_KEY: '${GEMINI_API_KEY}' # Set this via environment variable
 
 # Build timeout
 timeout: '1200s'

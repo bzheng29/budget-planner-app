@@ -12,7 +12,7 @@ NC='\033[0m'
 
 # Configuration
 PROJECT_ID="finn-468109"
-GEMINI_API_KEY="AIzaSyCZ16kAe0oOUGfiPaZe8C6fjXAdyWbtQk8"
+GEMINI_API_KEY="${VITE_GEMINI_API_KEY:-}" # Set via environment variable
 
 echo -e "${GREEN}🚀 Deploying Budget Planner to Google Cloud Run${NC}"
 echo "Project: $PROJECT_ID"

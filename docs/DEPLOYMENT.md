@@ -30,7 +30,7 @@ gcloud services enable secretmanager.googleapis.com
 
 ```bash
 # Create secret for Gemini API key
-echo -n "AIzaSyCZ16kAe0oOUGfiPaZe8C6fjXAdyWbtQk8" | gcloud secrets create gemini-api-key --data-file=-
+echo -n "${VITE_GEMINI_API_KEY}" | gcloud secrets create gemini-api-key --data-file=-
 
 # Grant Cloud Build access to the secret
 gcloud secrets add-iam-policy-binding gemini-api-key \

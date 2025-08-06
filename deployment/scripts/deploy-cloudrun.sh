@@ -40,7 +40,7 @@ echo "This will build your Docker image in the cloud and deploy it directly."
 echo ""
 
 gcloud builds submit --config cloudbuild.yaml \
-    --substitutions=_SERVICE_NAME=$SERVICE_NAME,_REGION=$REGION,_GEMINI_API_KEY=AIzaSyCZ16kAe0oOUGfiPaZe8C6fjXAdyWbtQk8
+    --substitutions=_SERVICE_NAME=$SERVICE_NAME,_REGION=$REGION,_GEMINI_API_KEY=${VITE_GEMINI_API_KEY:-}
 
 # Get the service URL
 echo -e "${YELLOW}Getting service URL...${NC}"

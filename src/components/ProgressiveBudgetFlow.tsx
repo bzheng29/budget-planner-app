@@ -37,7 +37,7 @@ const ProgressiveBudgetFlow: React.FC = () => {
   const [completedStepIds, setCompletedStepIds] = useState<Set<string>>(new Set());
   const [totalExpectedSteps, setTotalExpectedSteps] = useState(5); // Base expected steps
   
-  const expenseParser = new ExpenseParserService('AIzaSyCZ16kAe0oOUGfiPaZe8C6fjXAdyWbtQk8');
+  const expenseParser = new ExpenseParserService(import.meta.env.VITE_GEMINI_API_KEY || '');
 
   // Initial steps - will be dynamically adjusted based on user data
   const baseSteps: Step[] = [

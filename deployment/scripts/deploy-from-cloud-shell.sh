@@ -15,7 +15,7 @@ NC='\033[0m'
 PROJECT_ID="finn-468109"
 SERVICE_NAME="budget-planner-finn"
 REGION="us-central1"
-GEMINI_API_KEY="AIzaSyCZ16kAe0oOUGfiPaZe8C6fjXAdyWbtQk8"
+GEMINI_API_KEY="${VITE_GEMINI_API_KEY:-}" # Set via environment variable
 
 echo -e "${GREEN}🚀 Deploying Budget Planner with Finn from Cloud Shell${NC}"
 echo "Project: $PROJECT_ID"

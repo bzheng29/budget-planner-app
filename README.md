@@ -26,7 +26,7 @@
 
 1. 克隆仓库
 \`\`\`bash
-git clone https://github.com/yourusername/budget-planner-app.git
+git clone https://github.com/bzheng29/budget-planner-app.git
 cd budget-planner-app
 \`\`\`
 
@@ -36,11 +36,20 @@ npm install
 \`\`\`
 
 3. 配置环境变量
-创建 \`.env\` 文件并添加：
+复制环境变量示例文件并添加您的 API 密钥：
+\`\`\`bash
+cp .env.example .env
 \`\`\`
-VITE_GEMINI_API_KEY=your_gemini_api_key_here
+然后编辑 \`.env\` 文件，添加您的 Gemini API 密钥：
+\`\`\`
+VITE_GEMINI_API_KEY=your_actual_api_key_here
 VITE_GEMINI_MODEL=gemini-2.5-pro
 \`\`\`
+
+**⚠️ 安全提示**: 
+- 永远不要将真实的 API 密钥提交到 Git
+- 获取 API 密钥请访问 [Google AI Studio](https://makersuite.google.com/app/apikey)
+- `.env` 文件已在 `.gitignore` 中，不会被提交
 
 4. 启动开发服务器
 \`\`\`bash

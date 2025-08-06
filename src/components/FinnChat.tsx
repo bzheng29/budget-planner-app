@@ -25,7 +25,7 @@ const FinnChat: React.FC = () => {
   const [isProcessingExpenses, setIsProcessingExpenses] = useState(false)
   const [, setExpenseMetadata] = useState<ExpenseMetadata | null>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const expenseParser = new ExpenseParserService('AIzaSyCZ16kAe0oOUGfiPaZe8C6fjXAdyWbtQk8')
+  const expenseParser = new ExpenseParserService(import.meta.env.VITE_GEMINI_API_KEY || '')
 
   const handleBudgetUpdate = (newCategories: BudgetCategory[]) => {
     if (!currentBudget) return
