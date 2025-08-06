@@ -44,63 +44,97 @@ export class ExpenseParserService {
   async parseExpenseFile(file: File): Promise<{ expenses: ParsedExpense[], metadata: ExpenseMetadata }> {
     const fileContent = await this.readFileContent(file);
     
-    const prompt = `Analyze this expense data file and extract ALL information needed for budget planning.
+    const prompt = `You are an expert financial data analyst specializing in Chinese and international expense data. 
+Analyze this expense data file with high accuracy and extract ALL information needed for budget planning.
 
 File name: ${file.name}
 Content:
 ${fileContent}
 
-Please analyze and return a comprehensive JSON response with:
-1. Parse all transactions into structured data
-2. Calculate spending patterns and statistics
-3. Generate lifestyle insights based on spending
+CRITICAL INSTRUCTIONS FOR ACCURATE PARSING:
+1. Support multiple languages (Chinese, English, mixed)
+2. Recognize Chinese payment platforms (支付宝/Alipay, 微信支付/WeChat Pay, 银联/UnionPay)
+3. Understand Chinese merchant names and categories
+4. Handle multiple date formats (YYYY-MM-DD, DD/MM/YYYY, MM/DD/YYYY, Chinese dates)
+5. Process amounts in CNY (¥) or USD ($) - normalize to base currency
+6. Be VERY careful with number parsing - look for decimal points and thousands separators
+
+CATEGORIZATION RULES:
+- Food & Dining: restaurants, cafes, delivery (外卖/美团/饿了么), groceries (超市/便利店)
+- Transportation: taxi (出租车/滴滴), subway (地铁), bus, gas, parking, car maintenance
+- Housing: rent (房租), utilities (水电费), property management (物业费), home maintenance
+- Shopping: clothing, electronics, online shopping (淘宝/京东/拼多多)
+- Entertainment: movies (电影), games, sports, hobbies
+- Healthcare: hospitals (医院), pharmacy (药店), insurance (保险)
+- Bills & Utilities: phone (话费), internet (网费), electricity (电费), water (水费), gas (燃气费)
+- Education: courses, books, training
+- Other: anything that doesn't fit above categories
 
 Return ONLY a valid JSON object with this exact structure:
 {
   "expenses": [
     {
       "date": "YYYY-MM-DD",
-      "description": "transaction description",
-      "amount": number (positive),
-      "category": "Food & Dining|Transportation|Housing|Shopping|Bills & Utilities|Entertainment|Healthcare|Other",
-      "merchantName": "extracted merchant name",
-      "isRecurring": boolean
+      "description": "original transaction description",
+      "amount": number (always positive, in base currency),
+      "category": "Food & Dining|Transportation|Housing|Shopping|Bills & Utilities|Entertainment|Healthcare|Education|Other",
+      "merchantName": "extracted merchant name (clean, no payment method)",
+      "isRecurring": boolean (true if appears regularly)
     }
   ],
   "metadata": {
-    "totalExpenses": total sum,
-    "periodStart": "YYYY-MM-DD",
-    "periodEnd": "YYYY-MM-DD",
+    "totalExpenses": sum of all expenses,
+    "periodStart": "YYYY-MM-DD" (earliest date),
+    "periodEnd": "YYYY-MM-DD" (latest date),
     "categoryBreakdown": {
-      "category_name": amount
+      "Food & Dining": total_amount,
+      "Transportation": total_amount,
+      "Housing": total_amount,
+      "Shopping": total_amount,
+      "Bills & Utilities": total_amount,
+      "Entertainment": total_amount,
+      "Healthcare": total_amount,
+      "Education": total_amount,
+      "Other": total_amount
     },
     "topMerchants": [
-      {"name": "merchant", "amount": total, "count": occurrences}
+      {"name": "merchant", "amount": total_spent, "count": number_of_transactions}
     ],
-    "recurringExpenses": [array of recurring expense objects],
-    "averageMonthlySpend": calculated average,
-    "missingData": ["any important missing data"],
+    "recurringExpenses": [
+      {
+        "date": "YYYY-MM-DD",
+        "description": "description",
+        "amount": amount,
+        "category": "category",
+        "merchantName": "merchant",
+        "isRecurring": true
+      }
+    ],
+    "averageMonthlySpend": total divided by number of months,
+    "missingData": ["list any data quality issues"],
     "insights": {
-      "diningOutFrequency": "rarely|occasionally|frequently|very_frequently",
-      "hasKids": boolean (detect from family restaurants, school expenses, childcare),
-      "hasDebt": boolean (detect from loan payments, credit card payments),
-      "estimatedIncome": number (estimate 1.3-2x of spending),
-      "savingsRate": number (0-100 percentage),
-      "lifestyle": "frugal|moderate|comfortable|luxury",
-      "transportMode": "public|car|mixed",
-      "location": "city name if detectable",
-      "subscriptionCount": number of subscriptions,
+      "diningOutFrequency": "rarely|occasionally|frequently|very_frequently" (based on restaurant frequency),
+      "hasKids": boolean (look for: school, childcare, kids items, family restaurants),
+      "hasDebt": boolean (look for: loan, credit card payment, installment, 贷款, 信用卡还款),
+      "estimatedIncome": number (for China: spending * 1.8, for US: spending * 1.5),
+      "savingsRate": number (estimate 20-30 for moderate spenders),
+      "lifestyle": "frugal|moderate|comfortable|luxury" (based on spending level and patterns),
+      "transportMode": "public|car|mixed" (check for gas, parking, subway, taxi patterns),
+      "location": "city name if detectable from merchants",
+      "subscriptionCount": count of recurring monthly services,
       "emergencyFundMonths": 0
     }
   }
 }
 
-Important:
-- Parse dates in any format to YYYY-MM-DD
-- Categorize intelligently based on merchant names and descriptions
-- Identify recurring expenses (same merchant, regular intervals)
-- Calculate realistic income estimates based on spending level
-- Detect lifestyle patterns from spending habits`;
+ACCURACY REQUIREMENTS:
+- Every transaction MUST be included
+- Amounts must be parsed correctly (watch for decimals)
+- Dates must be normalized to YYYY-MM-DD
+- Categories must be one of the specified values
+- Merchant names should be cleaned (remove payment methods, clean up formatting)
+- Calculate averageMonthlySpend by dividing total by months in period
+- Detect recurring by finding same merchant with regular intervals`;
 
     try {
       const response = await this.geminiService.generateResponse(prompt, true);

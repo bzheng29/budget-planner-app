@@ -45,36 +45,45 @@ export class AIBudgetReasoningService {
   }
 
   private buildReasoningPrompt(context: BudgetContext): string {
-    return `You are an expert financial planner. Create a personalized monthly budget for someone with the following profile:
+    return `You are an expert financial planner specializing in Chinese personal finance. Create a personalized monthly budget for someone with the following profile:
 
 CONTEXT:
-- Monthly after-tax income: $${context.userProfile.income}
-- Location: ${context.location || 'Average US city'}
+- Monthly after-tax income: ¥${(context.userProfile.income || 0) * 7} CNY (approximately)
+- Location: ${context.location || 'Chinese tier-1 city'}
 - Household size: ${context.familySize || 1} people
 - Life stage: ${context.lifeStage || 'working adult'}
-- Monthly debt payments: $${context.debtObligations || 0}
-- Savings goal: ${context.userProfile.savingsGoal}% of income
+- Monthly debt payments: ¥${(context.debtObligations || 0) * 7} CNY
+- Savings goal: ${context.userProfile.savingsGoal || 20}% of income
 - Risk tolerance: ${context.userProfile.preferences?.riskTolerance || 'moderate'}
-- Current emergency fund: $${context.emergencyFund || 0}
+- Current emergency fund: ¥${(context.emergencyFund || 0) * 7} CNY
 
 ${context.userProfile.monthlySpending ? `ACTUAL SPENDING DATA:
-- Average monthly spending: $${Math.round(context.userProfile.monthlySpending)}
+- Average monthly spending: ¥${Math.round((context.userProfile.monthlySpending || 0) * 7)} CNY
 - Category breakdown: ${Object.entries(context.userProfile.expenseCategories || {})
-  .map(([cat, amount]) => `${cat}: $${Math.round(amount)}`)
+  .map(([cat, amount]) => `${cat}: ¥${Math.round((amount as number) * 7)}`)
   .join(', ')}` : ''}
 
 ${context.spendingHistory ? `RECENT SPENDING HISTORY:
 ${context.spendingHistory.slice(-3).map(month => 
-  `${month.month}: $${month.total} total (${Object.entries(month.categories).map(([cat, amt]) => `${cat}: $${amt}`).join(', ')})`
+  `${month.month}: ¥${month.total * 7} total (${Object.entries(month.categories).map(([cat, amt]) => `${cat}: ¥${(amt as number) * 7}`).join(', ')})`
 ).join('\n')}` : ''}
+
+CHINESE CONTEXT CONSIDERATIONS:
+- Housing costs vary greatly between tier-1/2/3 cities
+- Food costs include both groceries and frequent dining out (外卖 culture)
+- Transportation may include subway, bus, taxi/DiDi, or private car
+- Healthcare should include both insurance and out-of-pocket expenses
+- Education expenses for children are typically high priority
+- Consider traditional Chinese savings habits (higher savings rate)
+- Account for annual expenses like Spring Festival, gifts, travel
 
 Create a detailed monthly budget with the following requirements:
 1. Allocate spending across essential categories (housing, food, transportation, healthcare, debt) and discretionary categories
-2. Ensure the budget achieves their ${context.userProfile.savingsGoal}% savings goal
-3. Account for the cost of living in their location
-4. Consider family/household needs
+2. Ensure the budget achieves their ${context.userProfile.savingsGoal || 20}% savings goal
+3. Account for Chinese cost of living patterns
+4. Consider family/household needs (especially education if children)
 5. Include debt payments if applicable
-6. Provide specific dollar amounts and percentages for each category
+6. Provide amounts in CNY (Chinese Yuan) and percentages for each category
 
 Format your response as JSON with this structure:
 {
