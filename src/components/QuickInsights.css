@@ -114,12 +114,16 @@
   font-size: 48px;
   font-weight: bold;
   margin-bottom: 8px;
+  color: white;
+  opacity: 1;
 }
 
 .metric-card.primary .metric-label {
   font-size: 18px;
-  opacity: 0.95;
+  color: white;
+  opacity: 1;
   margin-bottom: 8px;
+  font-weight: 500;
 }
 
 .metric-card.primary .metric-detail {
