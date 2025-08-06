@@ -1,0 +1,44 @@
+steps:
+  # Build the container image with API key
+  - name: 'gcr.io/cloud-builders/docker'
+    args: 
+      - 'build'
+      - '--build-arg'
+      - 'GEMINI_API_KEY=${_GEMINI_API_KEY}'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/budget-planner-finn:latest'
+      - '.'
+  
+  # Push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/budget-planner-finn:latest']
+  
+  # Deploy container image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'budget-planner-finn'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/budget-planner-finn:latest'
+      - '--region'
+      - 'us-central1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--port'
+      - '8080'
+      - '--set-env-vars'
+      - 'VITE_GEMINI_API_KEY=${_GEMINI_API_KEY}'
+
+# Store images in Google Container Registry
+images:
+  - 'gcr.io/$PROJECT_ID/budget-planner-finn:latest'
+
+# Substitutions for environment variables
+substitutions:
+  _GEMINI_API_KEY: 'AIzaSyCZ16kAe0oOUGfiPaZe8C6fjXAdyWbtQk8'
+
+# Build timeout
+timeout: '1200s'

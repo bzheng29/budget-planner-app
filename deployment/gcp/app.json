@@ -1,0 +1,16 @@
+{
+  "name": "budget-planner-finn",
+  "env": {
+    "GEMINI_API_KEY": {
+      "description": "Your Gemini API key from Google AI Studio",
+      "required": true
+    }
+  },
+  "options": {
+    "allow-unauthenticated": true,
+    "memory": "512Mi",
+    "cpu": "1",
+    "port": 8080,
+    "http2": false
+  }
+}

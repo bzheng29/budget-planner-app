@@ -1,0 +1,161 @@
+.budget-slider-container {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid #e9ecef;
+  margin: 1rem 0;
+}
+
+.slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.slider-header h3 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.25rem;
+}
+
+.edit-toggle {
+  padding: 0.5rem 1rem;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.edit-toggle:hover {
+  background: #e9ecef;
+}
+
+.categories-sliders {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.category-slider {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.slider-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.category-label {
+  font-weight: 500;
+  color: #495057;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.essential-badge {
+  font-size: 0.75rem;
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 0.125rem 0.5rem;
+  border-radius: 12px;
+}
+
+.category-value {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.slider {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  outline: none;
+  -webkit-appearance: none;
+  background: #e9ecef;
+  cursor: pointer;
+}
+
+.slider:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #3498db;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.slider.essential::-webkit-slider-thumb {
+  background: #1565c0;
+}
+
+.budget-summary-slider {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  font-weight: 600;
+}
+
+.summary-row.savings {
+  color: #27ae60;
+}
+
+.warning {
+  color: #e74c3c;
+}
+
+.good {
+  color: #27ae60;
+}
+
+.slider-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.save-button, .cancel-button {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.save-button {
+  background: #3498db;
+  color: white;
+}
+
+.save-button:hover {
+  background: #2980b9;
+}
+
+.cancel-button {
+  background: #f8f9fa;
+  color: #6c757d;
+}

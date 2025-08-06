@@ -1,0 +1,290 @@
+.quick-insights {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.insights-intro {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.insights-intro h2 {
+  font-size: 22px;
+  margin-bottom: 0;
+  color: #333;
+}
+
+/* Detected Patterns - WOW Effect */
+.detected-patterns {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.pattern-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  animation: slideIn 0.5s ease;
+  background: white;
+  border: 2px solid #e5e7eb;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.pattern-card.debt-detected {
+  background: linear-gradient(135deg, #fef2f2, #fee2e2);
+  border-color: #fca5a5;
+}
+
+.pattern-card.recurring-detected {
+  background: linear-gradient(135deg, #f0f9ff, #dbeafe);
+  border-color: #93c5fd;
+}
+
+.pattern-card.subscriptions-detected {
+  background: linear-gradient(135deg, #faf5ff, #f3e8ff);
+  border-color: #d8b4fe;
+}
+
+.pattern-icon {
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+}
+
+.pattern-content h4 {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.pattern-content p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.key-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.metric-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.metric-card.primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 24px;
+}
+
+.metric-card.primary .metric-value {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.metric-card.primary .metric-label {
+  font-size: 18px;
+  opacity: 0.95;
+  margin-bottom: 8px;
+}
+
+.metric-card.primary .metric-detail {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.metric-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.metric-icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.metric-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.metric-label {
+  font-size: 14px;
+  color: #666;
+}
+
+.lifestyle-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.badge-icon {
+  font-size: 24px;
+}
+
+.badge-text {
+  font-size: 15px;
+  color: #78350f;
+}
+
+.badge-text strong {
+  color: #92400e;
+  text-transform: capitalize;
+}
+
+.what-next {
+  text-align: center;
+  padding: 14px;
+  background: #f9fafb;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.what-next p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 15px;
+}
+
+.step-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.back-button,
+.next-button {
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.back-button {
+  background: #f3f4f6;
+  color: #333;
+}
+
+.back-button:hover {
+  background: #e5e7eb;
+}
+
+.next-button.primary {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  min-width: 150px;
+}
+
+.next-button.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+/* Favorite Spots */
+.favorite-spots {
+  margin: 24px 0;
+  padding: 20px;
+  background: #f9fafb;
+  border-radius: 12px;
+}
+
+.favorite-spots h3 {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.merchant-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.merchant-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.chip-name {
+  color: #333;
+  font-weight: 500;
+}
+
+.chip-count {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+/* Personalized Insight */
+.personalized-insight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px;
+  background: linear-gradient(135deg, #ede9fe, #ddd6fe);
+  border-radius: 10px;
+  margin: 16px 0;
+}
+
+.insight-icon {
+  font-size: 24px;
+}
+
+.insight-text {
+  font-size: 15px;
+  color: #5b21b6;
+  font-weight: 500;
+}

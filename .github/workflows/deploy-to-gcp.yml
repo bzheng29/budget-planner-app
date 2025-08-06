@@ -1,0 +1,92 @@
+name: Deploy to Google Cloud Run
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      region:
+        description: 'GCP region for deployment'
+        required: true
+        default: 'us-central1'
+        type: choice
+        options:
+          - us-central1
+          - us-east1
+          - europe-west1
+          - asia-southeast1
+
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  SERVICE_NAME: budget-planner-finn
+  REGION: ${{ github.event.inputs.region || 'us-central1' }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+
+    - name: Configure Docker for GCR
+      run: |
+        gcloud auth configure-docker
+
+    - name: Build and Push Container
+      env:
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      run: |
+        docker build \
+          --build-arg GEMINI_API_KEY=$GEMINI_API_KEY \
+          -t gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA \
+          -t gcr.io/$PROJECT_ID/$SERVICE_NAME:latest \
+          .
+        
+        docker push gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA
+        docker push gcr.io/$PROJECT_ID/$SERVICE_NAME:latest
+
+    - name: Deploy to Cloud Run
+      run: |
+        gcloud run deploy $SERVICE_NAME \
+          --image gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA \
+          --region $REGION \
+          --platform managed \
+          --allow-unauthenticated \
+          --port 8080 \
+          --memory 512Mi \
+          --cpu 1 \
+          --max-instances 100 \
+          --min-instances 0
+
+    - name: Get Service URL
+      run: |
+        SERVICE_URL=$(gcloud run services describe $SERVICE_NAME --region $REGION --format 'value(status.url)')
+        echo "Service deployed to: $SERVICE_URL"
+        echo "SERVICE_URL=$SERVICE_URL" >> $GITHUB_ENV
+
+    - name: Create deployment summary
+      run: |
+        echo "## Deployment Summary" >> $GITHUB_STEP_SUMMARY
+        echo "- **Service**: $SERVICE_NAME" >> $GITHUB_STEP_SUMMARY
+        echo "- **Region**: $REGION" >> $GITHUB_STEP_SUMMARY
+        echo "- **URL**: ${{ env.SERVICE_URL }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Image**: gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA" >> $GITHUB_STEP_SUMMARY

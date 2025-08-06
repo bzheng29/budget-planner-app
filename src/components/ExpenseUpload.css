@@ -1,0 +1,200 @@
+.expense-upload-container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.upload-area {
+  border: 2px dashed #e0e0e0;
+  border-radius: 12px;
+  padding: 40px 20px;
+  text-align: center;
+  background: #fafafa;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.upload-area:hover {
+  border-color: #4f46e5;
+  background: #f7f6ff;
+}
+
+.upload-area.drag-active {
+  border-color: #4f46e5;
+  background: #f0efff;
+}
+
+.upload-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.upload-text {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.upload-hint {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.upload-button {
+  display: inline-block;
+  padding: 10px 24px;
+  background: #4f46e5;
+  color: white;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.upload-button:hover {
+  background: #4338ca;
+}
+
+.selected-file {
+  margin-top: 20px;
+  padding: 16px;
+  background: #f7f6ff;
+  border-radius: 8px;
+}
+
+.file-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.file-icon {
+  font-size: 20px;
+}
+
+.file-name {
+  font-weight: 500;
+  color: #333;
+}
+
+.file-size {
+  color: #666;
+  font-size: 14px;
+}
+
+.upload-confirm-button {
+  width: 100%;
+  padding: 12px;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.upload-confirm-button:hover:not(:disabled) {
+  background: #4338ca;
+}
+
+.upload-confirm-button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.processing-indicator {
+  margin-top: 24px;
+  padding: 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  color: white;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.processing-stages {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.stage-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.stage-icon {
+  font-size: 20px;
+}
+
+.stage-text {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.processing-message {
+  text-align: center;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.processing-message p {
+  margin: 8px 0;
+  font-size: 15px;
+}
+
+.processing-tip {
+  font-size: 13px !important;
+  opacity: 0.9;
+}
