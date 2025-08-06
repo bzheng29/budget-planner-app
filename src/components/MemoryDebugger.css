@@ -1,11 +1,12 @@
 .memory-debugger {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
   border-radius: 20px;
   padding: 30px;
   margin: 20px auto;
   max-width: 1200px;
-  color: white;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  color: #1a202c;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid #cbd5e0;
 }
 
 .no-memory {
@@ -16,17 +17,18 @@
 .no-memory h3 {
   font-size: 24px;
   margin-bottom: 10px;
+  color: #2d3748;
 }
 
 .no-memory p {
   font-size: 16px;
-  opacity: 0.9;
+  color: #4a5568;
   margin-bottom: 30px;
 }
 
 .generate-btn {
-  background: white;
-  color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
   border: none;
   padding: 12px 24px;
   border-radius: 10px;
@@ -53,6 +55,7 @@
 .debugger-header h2 {
   font-size: 28px;
   font-weight: 700;
+  color: #1a202c;
 }
 
 .header-actions {
@@ -68,9 +71,9 @@
 }
 
 .debugger-tabs button {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: white;
+  color: #4a5568;
+  border: 2px solid #e2e8f0;
   padding: 10px 20px;
   border-radius: 10px;
   font-size: 14px;
@@ -80,33 +83,35 @@
 }
 
 .debugger-tabs button:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: #f7fafc;
+  border-color: #cbd5e0;
 }
 
 .debugger-tabs button.active {
-  background: white;
-  color: #667eea;
-  border-color: white;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: #667eea;
 }
 
 .debugger-content {
-  background: rgba(255, 255, 255, 0.1);
+  background: white;
   border-radius: 15px;
   padding: 25px;
-  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .memory-section h3 {
   font-size: 22px;
   margin-bottom: 20px;
   font-weight: 600;
+  color: #2d3748;
 }
 
 .memory-section h4 {
   font-size: 18px;
   margin-bottom: 15px;
   font-weight: 600;
-  opacity: 0.95;
+  color: #4a5568;
 }
 
 /* Overview Grid */
@@ -117,16 +122,17 @@
 }
 
 .overview-card {
-  background: rgba(255, 255, 255, 0.1);
+  background: #f7fafc;
   border-radius: 12px;
   padding: 20px;
-  backdrop-filter: blur(5px);
+  border: 1px solid #e2e8f0;
 }
 
 .overview-card h4 {
   font-size: 16px;
   margin-bottom: 15px;
-  color: rgba(255, 255, 255, 0.9);
+  color: #2d3748;
+  font-weight: 600;
 }
 
 .overview-card p {
@@ -137,22 +143,24 @@
 }
 
 .overview-card strong {
-  opacity: 0.8;
+  color: #718096;
 }
 
 /* Financial Details */
 .financial-details {
-  background: rgba(255, 255, 255, 0.05);
+  background: #f7fafc;
   border-radius: 10px;
   padding: 20px;
+  border: 1px solid #e2e8f0;
 }
 
 .detail-row {
   display: flex;
   justify-content: space-between;
   padding: 12px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid #e2e8f0;
   font-size: 15px;
+  color: #2d3748;
 }
 
 .detail-row:last-child {
@@ -169,10 +177,11 @@
 
 /* Spending Analysis */
 .category-breakdown {
-  background: rgba(255, 255, 255, 0.05);
+  background: #f7fafc;
   border-radius: 10px;
   padding: 20px;
   margin-bottom: 30px;
+  border: 1px solid #e2e8f0;
 }
 
 .category-row {
@@ -186,11 +195,11 @@
 .category-name {
   font-size: 14px;
   text-transform: capitalize;
-  opacity: 0.9;
+  color: #4a5568;
 }
 
 .category-bar {
-  background: rgba(255, 255, 255, 0.1);
+  background: #e2e8f0;
   height: 20px;
   border-radius: 10px;
   overflow: hidden;
@@ -206,7 +215,7 @@
 .category-amount {
   font-size: 13px;
   text-align: right;
-  opacity: 0.9;
+  color: #2d3748;
 }
 
 .metrics-grid {
@@ -216,12 +225,14 @@
 }
 
 .metric {
-  background: rgba(255, 255, 255, 0.05);
+  background: #f7fafc;
   padding: 15px;
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border: 1px solid #e2e8f0;
+  color: #2d3748;
 }
 
 .trend-increasing {
@@ -244,21 +255,23 @@
 }
 
 .insight {
-  background: rgba(255, 255, 255, 0.05);
+  background: #f7fafc;
   padding: 20px;
   border-radius: 12px;
   text-align: center;
+  border: 1px solid #e2e8f0;
 }
 
 .insight h4 {
   font-size: 14px;
   margin-bottom: 10px;
-  opacity: 0.8;
+  color: #718096;
 }
 
 .insight span {
   font-size: 16px;
   font-weight: 600;
+  color: #2d3748;
 }
 
 .personality-frugal {
@@ -278,7 +291,7 @@
 }
 
 .score-bar {
-  background: rgba(255, 255, 255, 0.1);
+  background: #e2e8f0;
   height: 8px;
   border-radius: 4px;
   overflow: hidden;
@@ -298,15 +311,17 @@
 
 /* Goals Section */
 .goal-targets {
-  background: rgba(255, 255, 255, 0.05);
+  background: #f7fafc;
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 20px;
+  border: 1px solid #e2e8f0;
 }
 
 .goal-targets p {
   margin: 10px 0;
   font-size: 15px;
+  color: #2d3748;
 }
 
 .primary-goals {
@@ -315,9 +330,10 @@
 }
 
 .goal-card {
-  background: rgba(255, 255, 255, 0.05);
+  background: #f7fafc;
   padding: 20px;
   border-radius: 12px;
+  border: 1px solid #e2e8f0;
 }
 
 .goal-header {
@@ -327,7 +343,8 @@
 }
 
 .goal-type {
-  background: rgba(255, 255, 255, 0.2);
+  background: #edf2f7;
+  color: #4a5568;
   padding: 4px 12px;
   border-radius: 6px;
   font-size: 12px;
@@ -356,7 +373,7 @@
 }
 
 .progress-bar {
-  background: rgba(255, 255, 255, 0.1);
+  background: #e2e8f0;
   height: 10px;
   border-radius: 5px;
   overflow: hidden;
@@ -372,8 +389,8 @@
 
 /* Raw JSON */
 .raw-json {
-  background: rgba(0, 0, 0, 0.3);
-  color: #4ade80;
+  background: #2d3748;
+  color: #68d391;
   padding: 20px;
   border-radius: 10px;
   font-family: 'Courier New', monospace;
@@ -381,6 +398,7 @@
   overflow-x: auto;
   max-height: 500px;
   overflow-y: auto;
+  border: 1px solid #4a5568;
 }
 
 /* Test Scenarios */
@@ -394,9 +412,10 @@
 
 .test-scenarios-panel {
   margin-top: 30px;
-  background: rgba(255, 255, 255, 0.1);
+  background: #f7fafc;
   border-radius: 15px;
   padding: 20px;
+  border: 1px solid #e2e8f0;
 }
 
 .scenarios-list {
@@ -407,9 +426,9 @@
 }
 
 .scenario-btn {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: white;
+  color: #4a5568;
+  border: 2px solid #e2e8f0;
   padding: 12px 20px;
   border-radius: 10px;
   cursor: pointer;
@@ -421,14 +440,15 @@
 }
 
 .scenario-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: #f7fafc;
   transform: translateY(-2px);
+  border-color: #cbd5e0;
 }
 
 .scenario-btn.active {
-  background: white;
-  color: #667eea;
-  border-color: white;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: #667eea;
 }
 
 .scenario-btn strong {
@@ -438,5 +458,6 @@
 
 .scenario-btn span {
   font-size: 12px;
-  opacity: 0.8;
+  color: inherit;
+  opacity: 0.9;
 }
